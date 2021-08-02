@@ -1,20 +1,16 @@
 defmodule JobOffers do
   @moduledoc false
 
-  alias JobOffers.Printer
+  alias JobOffers.{Printer, Utils}
 
   require Logger
 
-  NimbleCSV.define(CsvParser, separator: ",", escape: "\"")
-
   @total_key "total"
   @error_key "error"
-  @stream_opts read_ahead: 100_000
 
   def parse_professions do
-    professions_path()
-    |> File.stream!(@stream_opts)
-    |> CsvParser.parse_stream
+    :professions
+    |> Utils.parse()
     |> Enum.reduce(%{}, fn [id, name, category], acc ->
       Map.put(acc, id, {name, category})
     end)
@@ -24,9 +20,8 @@ defmodule JobOffers do
     professions = parse_professions()
 
     result =
-      jobs_path()
-      |> File.stream!(@stream_opts)
-      |> CsvParser.parse_stream
+      :jobs
+      |> Utils.parse()
       |> category_continent_reduce(professions)
 
     Printer.convert_and_print(result)
@@ -55,18 +50,6 @@ defmodule JobOffers do
           {crossings, continents, categories, increment_count(service, @error_key)}
       end
     end)
-  end
-
-  defp jobs_path do
-    :job_offers
-    |> :code.priv_dir()
-    |> Path.join("technical-test-jobs.csv")
-  end
-
-  defp professions_path do
-    :job_offers
-    |> :code.priv_dir()
-    |> Path.join("technical-test-professions.csv")
   end
 
   defp increment_count(map, key) do
