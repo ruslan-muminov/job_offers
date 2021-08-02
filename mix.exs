@@ -22,6 +22,7 @@ defmodule JobOffers.MixProject do
   defp deps do
     [
       {:nimble_csv, "~> 1.1"},
+      {:table_rex, "~> 3.1.1"},
       {:define_continent, git: "git@github.com:ruslan-muminov/define_continent.git"}
     ]
   end
