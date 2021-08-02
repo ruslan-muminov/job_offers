@@ -11,7 +11,6 @@ defmodule JobOffers do
   @error_key "error"
   @stream_opts read_ahead: 100_000
 
-  # JobOffers.parse_professions()
   def parse_professions do
     professions_path()
     |> File.stream!(@stream_opts)
@@ -21,7 +20,6 @@ defmodule JobOffers do
     end)
   end
 
-  # JobOffers.category_continent_job_offers_count()
   def category_continent_job_offers_count do
     professions = parse_professions()
 

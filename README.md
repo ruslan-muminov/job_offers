@@ -1,21 +1,16 @@
-# JobOffers
+## JobOffers
 
-**TODO: Add description**
+### Continents grouping
 
-## Installation
+For running this script print next:
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `job_offers` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:job_offers, "~> 0.1.0"}
-  ]
-end
+```bash
+mix deps.get
+mix category_continent_job_offers_count
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/job_offers](https://hexdocs.pm/job_offers).
+### Scaling
 
+In case we have 100 000 000 job offers or even more and still want to receive similar output in the previous section in real-time, we have to delegate calculating to separate processes. We could use a data parallelism and split our huge csv file into different parts and handle every part by separate process. As a result we will have a few answers, which we could just combine.
+
+### API implementation
