@@ -9,7 +9,7 @@ defmodule JobOffers.Api do
   # work with huge distances (a few hundred km max). So there is
   # an approximation to avoid complicated calculating.
 
-  # JobOffers.Api.job_offers_around_location(43, 7, 100)
+  # JobOffers.Api.job_offers_around_location(43, 7, 4000)
   @spec job_offers_around_location(lat :: number(), lon :: number(), radius :: number()) ::
           {:ok, list()} | {:error, term()}
   def job_offers_around_location(lat, lon, radius) do

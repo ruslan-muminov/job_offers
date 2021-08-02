@@ -5,6 +5,10 @@ defmodule JobOffers.EtsHelper do
 
   @spec select_offers_around_location(lat :: number(), lon :: number(), radius :: number()) :: list()
   def select_offers_around_location(lat, lon, radius) do
+    # (x - x0)^2 + (y - y0)^2 <= R^2
+    # Because of a small assumption about rad/km converting
+    # we could use this simple formula, which easy transform to
+    # match spec; so we have a almost full result after only one select.
     mspec = [
       {{:"$1", :_, :_, :"$2", :"$3"},
        [
