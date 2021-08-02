@@ -20,7 +20,7 @@ mix deps.get
 iex -S mix
 ```
 ```elixir
-JobOffers.Api.job_offers_around_location(43, 7, 4000)
+iex(1)> JobOffers.Api.job_offers_around_location(43, 7, 4000)
 ```
 
 There are some comments in code connected with radians and kilometers, and how it's handled.
