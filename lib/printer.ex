@@ -1,6 +1,7 @@
 defmodule JobOffers.Printer do
   @moduledoc false
 
+  @spec convert_and_print({map(), map(), map(), map()}) :: :ok
   def convert_and_print({crossings, continents, categories, service}) do
     with {headers, total_row} <- make_headers_and_total_row(categories, service),
          rest_rows <- make_rest_rows(continents, crossings, headers) do
