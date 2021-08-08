@@ -26,3 +26,10 @@ http://<host>:8443/offers_around_location?latitude=43&longitude=7&radius=4000
 ```
 
 There are some comments in code connected with radians and kilometers, and how it's handled.
+
+### Running tests
+
+```bash
+mix deps.get
+mix test --no-start
+```
