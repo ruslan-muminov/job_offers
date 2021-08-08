@@ -5,21 +5,21 @@ defmodule JobOffers.EtsHelper do
 
   @spec select_offers_around_location(lat :: number(), lon :: number(), radius :: number()) :: list()
   def select_offers_around_location(lat, lon, radius) do
-    # (x - x0)^2 + (y - y0)^2 <= R^2
-    # Because of a small assumption about rad/km converting
-    # we could use this simple formula, which easy transform to
-    # match spec; so we have a almost full result after only one select.
-    mspec = [
-      {{:"$1", :_, :_, :"$2", :"$3"},
-       [
-         {:"=<",
-          {:+, {:*, {:-, :"$2", lat}, {:-, :"$2", lat}},
-           {:*, {:-, :"$3", lon}, {:-, :"$3", lon}}}, {:*, radius, radius}}
-       ],
-       [:"$_"]}
-    ]
-
-    :ets.select(:job, mspec)
+    radius_m = radius * 1000
+    :ets.foldl(
+      fn
+        {_, _, _, office_lat, office_lon}, acc when not is_number(office_lat) or not is_number(office_lon) ->
+          acc
+        {prof_id, contract_type, name, office_lat, office_lon}, acc ->
+          distance = Geocalc.distance_between([lat, lon], [office_lat, office_lon])
+          if distance <= radius_m do
+            {prof_name, prof_category} = get_profession_info(prof_id)
+            proximity = Float.round(distance / 1000, 3)
+            [{prof_name, prof_category, contract_type, name, office_lat, office_lon, proximity} | acc]
+          else
+            acc
+          end
+      end, [], :job)
   end
 
   @spec get_profession_info(profession_id :: String.t()) :: {String.t(), String.t()}

@@ -28,7 +28,9 @@ defmodule JobOffersTest do
     test "job offers around location" do
       assert :ok == EtsHelper.init_tables()
 
-      assert Api.job_offers_around_location(13.7, 100.5, 30) == offers_around_location_bangkok()
+      assert Api.job_offers_around_location(13.7, 100.5, 10) == offers_around_location_bangkok()
+      assert Api.job_offers_around_location(13.7, 100.5, 5) == {:ok, []}
+      assert {:error, _} = Api.job_offers_around_location(13.7, 100.5, "5")
     end
   end
 
@@ -38,11 +40,11 @@ defmodule JobOffersTest do
 
   defp offers_around_location_bangkok do
     {:ok, [
-       {"Relation client / Support", "Business", "FULL_TIME", "Group IT Supervisor", 13.7563309, 100.5017651, 359.4295},
-       {"Relation client / Support", "Business", "FULL_TIME", "IT Supervisor", 13.7563309, 100.5017651, 359.4295},
-       {"Relation client / Support", "Business", "FULL_TIME", "IT Supervisor (m/f)", 13.7428119, 100.549696, 418.328},
-       {"BizDev / Vente", "Business", "FULL_TIME", "Assistant Manager – Digital Media Buyer", 13.7563309, 100.5017651, 359.4295},
-       {"BizDev / Vente", "Business", "FULL_TIME", "FR - Agent Local - Thaïlande", 13.7563309, 100.5017651, 359.4295}
+      {"Relation client / Support", "Business", "FULL_TIME", "IT Supervisor (m/f)", 13.7428119, 100.549696, 7.175},
+      {"Relation client / Support", "Business", "FULL_TIME", "IT Supervisor", 13.7563309, 100.5017651, 6.267},
+      {"Relation client / Support", "Business", "FULL_TIME", "Group IT Supervisor", 13.7563309, 100.5017651, 6.267},
+      {"BizDev / Vente", "Business", "FULL_TIME", "FR - Agent Local - Thaïlande", 13.7563309, 100.5017651, 6.267},
+      {"BizDev / Vente", "Business", "FULL_TIME", "Assistant Manager – Digital Media Buyer", 13.7563309, 100.5017651, 6.267}
     ]}
   end
 

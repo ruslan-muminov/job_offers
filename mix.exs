@@ -25,6 +25,7 @@ defmodule JobOffers.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:nimble_csv, "~> 1.1"},
       {:table_rex, "~> 3.1.1"},
+      {:geocalc, "~> 0.8"},
       {:define_continent, git: "git@github.com:ruslan-muminov/define_continent.git"}
     ]
   end
