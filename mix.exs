@@ -14,7 +14,7 @@ defmodule JobOffers.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :plug_cowboy],
       mod: {JobOffers.Application, []}
     ]
   end
@@ -22,6 +22,7 @@ defmodule JobOffers.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:plug_cowboy, "~> 2.0"},
       {:nimble_csv, "~> 1.1"},
       {:table_rex, "~> 3.1.1"},
       {:define_continent, git: "git@github.com:ruslan-muminov/define_continent.git"}

@@ -22,4 +22,13 @@ defmodule JobOffers.Utils do
     |> :code.priv_dir()
     |> Path.join("technical-test-professions.csv")
   end
+
+  def binary_to_float(str) do
+    try do
+      {num, _} = Float.parse(str)
+      num
+    rescue
+      _e -> nil
+    end
+  end
 end

@@ -52,18 +52,9 @@ defmodule JobOffers.EtsHelper do
     :jobs
     |> Utils.parse()
     |> Enum.map(fn [profession_id, contract_type, name, office_lat, office_lon] ->
-      office_lat = binary_to_float(office_lat)
-      office_lon = binary_to_float(office_lon)
+      office_lat = Utils.binary_to_float(office_lat)
+      office_lon = Utils.binary_to_float(office_lon)
       :ets.insert(:job, {profession_id, contract_type, name, office_lat, office_lon})
     end)
-  end
-
-  defp binary_to_float(str) do
-    try do
-      {num, _} = Float.parse(str)
-      num
-    rescue
-      _e -> nil
-    end
   end
 end
