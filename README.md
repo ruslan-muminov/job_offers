@@ -15,12 +15,14 @@ In case we have 100 000 000 job offers or even more and still want to receive si
 
 ### API implementation
 
-```bash
-mix deps.get
-iex -S mix
+To check connectivity:
 ```
-```elixir
-iex(1)> JobOffers.Api.job_offers_around_location(43, 7, 4000)
+http://<host>:8443/ping
+```
+
+To get job offers around given location and radius:
+```
+http://<host>:8443/offers_around_location?latitude=43&longitude=7&radius=4000
 ```
 
 There are some comments in code connected with radians and kilometers, and how it's handled.
